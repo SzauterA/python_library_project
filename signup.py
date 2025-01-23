@@ -1,7 +1,7 @@
 import re
 import bcrypt
 import patterns
-from sql_connect import connect
+from db_handler import connect
 from datetime import datetime
 import textwrap
 

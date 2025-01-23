@@ -1,12 +1,15 @@
 import psycopg2
+from dotenv import load_dotenv
+import os
 
 
-#configuration data for the connection
+#configuration data from the enviroment file
+load_dotenv()
 config = {
-    'host': 'localhost',
-    'database': 'postgres',
-    'user': 'postgres',
-    'password': 'postgres',
+    'host': os.getenv('DB_HOST'),
+    'database': os.getenv('DB_NAME'),
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASSWORD'),
 }
 
 #connection to the database and cursor creation
@@ -71,8 +74,8 @@ def insert_data(conn, cur):
             VALUES (%s, %s, %s, %s)
             ON CONFLICT (isbn) DO NOTHING
         """, books_data)  
+
         conn.commit()
- 
     except Exception as e:
         print(f"Error: {e}")
         conn.rollback()

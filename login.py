@@ -1,5 +1,5 @@
 import bcrypt
-from sql_connect import connect
+from db_handler import connect
 
 
 #checking the username and password in the database

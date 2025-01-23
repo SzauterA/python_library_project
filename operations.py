@@ -1,4 +1,4 @@
-from sql_connect import connect
+from db_handler import connect
 from psycopg2 import sql
 import textwrap
 import datetime
@@ -18,30 +18,34 @@ def listing(cur):
 
 #searching in the list
 def searching(cur):
-    choice = input("Do you want to search in the list? yes/no: ").strip().lower()
-    if choice == 'yes':
-        search = input('Expression you want to search for: ').strip()
-        search_pattern = f"%{search}%"
-        
-        query = """
-        SELECT * FROM library.books 
-        WHERE title LIKE %s 
-        OR author LIKE %s 
-        OR isbn LIKE %s 
-        OR CAST(available AS TEXT) LIKE %s
-        """
-        cur.execute(query, (search_pattern, search_pattern, search_pattern, search_pattern))
-        filtered_rows = cur.fetchall()
-        
-        if filtered_rows:
-            print('Search result:')
-            for row in filtered_rows:
-                print(row)
-            log_searches(cur, search, filtered_rows)
+    while True:
+        choice = input("Do you want to search in the list? yes/no: ").strip().lower()
+        if choice == 'yes':
+            search = input('Expression you want to search for: ').strip()
+            search_pattern = f"%{search}%"
+            
+            query = """
+            SELECT * FROM library.books 
+            WHERE title LIKE %s 
+            OR author LIKE %s 
+            OR isbn LIKE %s 
+            OR CAST(available AS TEXT) LIKE %s
+            """
+            cur.execute(query, (search_pattern, search_pattern, search_pattern, search_pattern))
+            filtered_rows = cur.fetchall()
+            
+            if filtered_rows:
+                print('Search result:')
+                for row in filtered_rows:
+                    print(row)
+                log_searches(cur, search, filtered_rows)
+            else:
+                print("No books found matching the search parameters.")
+        elif choice == 'no':
+            return
         else:
-            print("No books found matching the search parameters.")
-    elif choice == 'no':
-        return
+            print("Invalid input. Please only choose from 'yes/no'!")
+            continue
     
 #logging search results
 def log_searches(cur, search, filtered_rows):

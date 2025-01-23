@@ -1,8 +1,0 @@
-Search Keyword: The
-Search Time: 2024-10-21 12:51:23
-Search Results:
-(1, 'The Shadow Over Innsmouth', 'H.P. Lovecraft', '9781495393082', 5)
-(3, 'The Shadow Out of Time', 'H.P. Lovecraft', '9780967321530', 2)
-(4, 'The Shining', 'Stephen King', '9780307743657', 5)
-(5, 'The Outsider', 'Stephen King', '9781501180989', 3)
-
